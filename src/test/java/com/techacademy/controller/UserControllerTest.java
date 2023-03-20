@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
+import com.techacademy.TutorialDevelopApplication;
 import com.techacademy.entity.User;
 
-@SpringBootTest
+@SpringBootTest(classes = TutorialDevelopApplication.class)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 class UserControllerTest {
@@ -48,7 +48,7 @@ class UserControllerTest {
 	@WithMockUser
 	void testGetUser() throws Exception {
 		// HTTPリクエストに対するレスポンスの検証
-		MvcResult result = mockMvc.perform(get("/user/update/1/")) // URLにアクセス
+		MvcResult result = mockMvc.perform(get("/user/update/2/")) // URLにアクセス
 			.andExpect(status().isOk()) // ステータスを確認
 			.andExpect(model().attributeExists("user")) // Modelの内容を確認
 			.andExpect(model().hasNoErrors()) // Modelのエラー有無の確認
@@ -58,7 +58,7 @@ class UserControllerTest {
 		// userの検証
 		// Modelからuserを取り出す
 		User user = (User)result.getModelAndView().getModel().get("user");
-		assertEquals(user.getId(), 1);
-		assertEquals(user.getName(), "キラメキ太郎");
+		assertEquals(user.getId(), 2);
+		assertEquals(user.getName(), "キラメキ次郎");
 	}
 }

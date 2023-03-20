@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,10 +22,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
+import com.techacademy.TutorialDevelopApplication;
 import com.techacademy.entity.User;
 
-@SpringBootTest
+@SpringBootTest(classes = TutorialDevelopApplication.class)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 class UserControllerTest2 {
@@ -43,23 +45,38 @@ class UserControllerTest2 {
 				.apply(springSecurity()).build();
 	}
 
-
 	@Test
-	@DisplayName("User更新画面")
+	@DisplayName("getuser")
 	@WithMockUser
 	void testGetUser() throws Exception {
 		// HTTPリクエストに対するレスポンスの検証
-		MvcResult result = mockMvc.perform(get("/user/update/1/")) // URLにアクセス
+		MvcResult result = mockMvc.perform(get("/user/list/")) // URLにアクセス
 			.andExpect(status().isOk()) // ステータスを確認
-			.andExpect(model().attributeExists("user")) // Modelの内容を確認
+			.andExpect(model().attributeExists("userlist")) // Modelの内容を確認
 			.andExpect(model().hasNoErrors()) // Modelのエラー有無の確認
-			.andExpect(view().name("user/update")) // viewの確認
+			.andExpect(view().name("user/list")) // viewの確認
 			.andReturn(); // 内容の取得
 
-		// userの検証
-		// Modelからuserを取り出す
-		User user = (User)result.getModelAndView().getModel().get("user");
-		assertEquals(user.getId(), 1);
-		assertEquals(user.getName(), "キラメキ太郎");
+
+		//userリストから取得したUserのインスタンスを変数に格納し、そこからgetNameやgetIdを行う
+		// userlistの検証
+		// Modelからuserlistを取り出す
+		// ユーザー情報の1件目
+			List<User> ul = (List<User>) result.getModelAndView().getModel().get("userlist");
+			User u = ul.get(0);
+			assertEquals(u.getId(),1 );
+			assertEquals(u.getName(), "キラメキ太郎");
+
+
+		// ユーザー情報の2件目
+			u = ul.get(1);
+			assertEquals(u.getId(),2 );
+			assertEquals(u.getName(), "キラメキ次郎");
+
+
+		// ユーザー情報の3件目
+			u = ul.get(2);
+			assertEquals(u.getId(),3 );
+			assertEquals(u.getName(), "キラメキ花子");
 	}
-}
+	}

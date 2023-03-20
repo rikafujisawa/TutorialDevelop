@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-
+import com.techacademy.TutorialDevelopApplication;
 import com.techacademy.entity.User;
 
-@SpringBootTest
+@SpringBootTest(classes = TutorialDevelopApplication.class)
 @ExtendWith(SpringExtension.class)
 class UserRepositoryTest {
 	private final UserRepository userRepository;

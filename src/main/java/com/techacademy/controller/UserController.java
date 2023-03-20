@@ -72,7 +72,7 @@ public class UserController {
 
 		if(res.hasErrors()) {
 			// エラーあり
-			return getRegister(user);
+			return "user/update";
 		}
 		// User登録
 		service.saveUser(user);

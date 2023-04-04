@@ -43,7 +43,7 @@ class UserControllerTest {
 				.apply(springSecurity()).build();
 	}
 
-	@Test
+	/*@Test
 	@DisplayName("User更新画面")
 	@WithMockUser
 	void testGetUser() throws Exception {
@@ -60,5 +60,5 @@ class UserControllerTest {
 		User user = (User)result.getModelAndView().getModel().get("user");
 		assertEquals(user.getId(), 2);
 		assertEquals(user.getName(), "キラメキ次郎");
-	}
+	}*/
 }

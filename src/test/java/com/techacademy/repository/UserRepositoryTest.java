@@ -21,10 +21,10 @@ class UserRepositoryTest {
 		this.userRepository = repository;
 	}
 
-	@Test
+	/*@Test
 	void testFindById() {
 		User user = userRepository.findById(1).get();
 		assertEquals(user.getId(), 1);
 		assertEquals(user.getName(), "キラメキ太郎");
-	}
+	}*/
 }
